@@ -42,3 +42,31 @@ export interface HeroContent {
     rows: readonly ManifestRow[];
   };
 }
+
+export type TechnologyLevel = "primary" | "secondary" | "supporting";
+
+export interface Technology {
+  name: string;
+  level: TechnologyLevel;
+}
+
+export interface TechnologyGroup {
+  id: string;
+  name: string;
+  description: string;
+  technologies: readonly Technology[];
+}
+
+export interface AboutPrinciple {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutContent {
+  eyebrow: string;
+  heading: string;
+  introduction: string;
+  paragraphs: readonly string[];
+  principles: readonly AboutPrinciple[];
+}
