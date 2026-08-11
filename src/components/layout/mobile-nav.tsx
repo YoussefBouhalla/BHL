@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { buttonStyles } from "@/components/primitives/button";
 import { navLinks, primaryCta } from "@/content/navigation";
@@ -149,7 +150,7 @@ export function MobileNav({ className }: { className?: string }) {
           <ul className="flex flex-col gap-1">
             {navLinks.map((link, index) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   onClick={close}
                   className="flex items-baseline gap-4 rounded-md px-2 py-3 text-lg font-medium text-foreground transition-colors duration-[var(--duration-base)] hover:bg-secondary"
@@ -161,20 +162,20 @@ export function MobileNav({ className }: { className?: string }) {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="shrink-0 border-t border-border p-5">
-          <a
+          <Link
             href={primaryCta.href}
             onClick={close}
             className={buttonStyles({ size: "lg", className: "w-full" })}
           >
             {primaryCta.label}
-          </a>
+          </Link>
           <a
             href={`mailto:${siteConfig.email}`}
             className="mt-4 block rounded-sm text-center font-mono text-xs text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-foreground"

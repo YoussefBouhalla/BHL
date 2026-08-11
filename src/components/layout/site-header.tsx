@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/primitives/container";
 import { buttonStyles } from "@/components/primitives/button";
 import { navLinks, navSectionIds, primaryCta } from "@/content/navigation";
@@ -9,9 +11,22 @@ import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
 
+/** Stable empty reference so the scroll spy stays idle away from the home page. */
+const noSections: readonly string[] = [];
+
 export function SiteHeader() {
   const scrolled = useScrolled();
-  const activeId = useActiveSection(navSectionIds);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const activeSectionId = useActiveSection(isHome ? navSectionIds : noSections);
+
+  // Off the home page there are no sections to observe, so fall back to
+  // matching the route instead of leaving a stale section highlighted.
+  const activeId = isHome
+    ? activeSectionId
+    : pathname.startsWith("/projects")
+      ? "projects"
+      : null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-[var(--header-height)]">
@@ -37,9 +52,11 @@ export function SiteHeader() {
 
               return (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
-                    aria-current={isActive ? "location" : undefined}
+                    aria-current={
+                      isActive ? (isHome ? "location" : "page") : undefined
+                    }
                     className={cn(
                       "group relative inline-block rounded-sm py-1 text-sm transition-colors duration-[var(--duration-base)]",
                       isActive
@@ -57,14 +74,14 @@ export function SiteHeader() {
                           : "scale-x-0 group-hover:scale-x-100",
                       )}
                     />
-                  </a>
+                  </Link>
                 </li>
               );
             })}
           </ul>
         </nav>
 
-        <a
+        <Link
           href={primaryCta.href}
           className={buttonStyles({
             size: "sm",
@@ -72,7 +89,7 @@ export function SiteHeader() {
           })}
         >
           {primaryCta.label}
-        </a>
+        </Link>
 
         <MobileNav className="md:hidden" />
       </Container>

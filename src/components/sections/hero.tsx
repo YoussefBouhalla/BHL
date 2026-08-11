@@ -2,19 +2,13 @@ import type { CSSProperties } from "react";
 import { ArrowRight } from "lucide-react";
 import { buttonStyles } from "@/components/primitives/button";
 import { Container } from "@/components/primitives/container";
+import { CornerMarks } from "@/components/primitives/corner-marks";
 import { heroContent } from "@/content/hero";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 const enterDelay = (ms: number) =>
   ({ "--enter-delay": `${ms}ms` }) as CSSProperties;
-
-const cornerMarks = [
-  "-left-1.5 -top-1.5 border-l-2 border-t-2",
-  "-right-1.5 -top-1.5 border-r-2 border-t-2",
-  "-bottom-1.5 -left-1.5 border-b-2 border-l-2",
-  "-bottom-1.5 -right-1.5 border-b-2 border-r-2",
-];
 
 export function Hero() {
   const { headline, supporting, primaryCta, secondaryCta, stack, manifest } =
@@ -124,16 +118,7 @@ export function Hero() {
             className="animate-enter relative lg:col-span-5"
             style={enterDelay(300)}
           >
-            {cornerMarks.map((position) => (
-              <span
-                key={position}
-                aria-hidden
-                className={cn(
-                  "absolute h-3 w-3 border-primary/70",
-                  position,
-                )}
-              />
-            ))}
+            <CornerMarks />
 
             <div className="rounded-lg border border-border bg-card/70 backdrop-blur-sm">
               <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-3">
