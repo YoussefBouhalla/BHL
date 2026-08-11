@@ -9,13 +9,21 @@ export interface CallToAction {
   href: string;
 }
 
+export interface SocialLink {
+  label: "LinkedIn" | "GitHub";
+  href: string | null;
+}
+
 export interface SiteConfig {
   name: string;
   shortName: string;
   role: string;
+  description: string;
   location: string;
   email: string;
   url: string;
+  socialLinks: readonly SocialLink[];
+  resumeUrl: string | null;
   availability: {
     open: boolean;
     note: string;
@@ -169,4 +177,13 @@ export interface ProcessStep {
 export interface ProcessContent extends SectionIntro {
   steps: readonly ProcessStep[];
   note: string;
+}
+
+export interface ContactContent extends SectionIntro {
+  emailLabel: string;
+  emailSubject: string;
+  contextHeading: string;
+  contextItems: readonly string[];
+  channelsHeading: string;
+  privacyNote: string;
 }

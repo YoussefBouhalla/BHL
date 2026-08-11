@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SkipLink } from "@/components/layout/skip-link";
 import { siteConfig } from "@/content/site";
@@ -24,8 +25,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} — ${siteConfig.role}`,
-  description:
-    "Full-stack developer building production-grade web applications with TypeScript, React, Next.js and Node.js.",
+  description: siteConfig.description,
 };
 
 export default function RootLayout({
@@ -36,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+        id="site-top"
         className={cn(
           inter.variable,
           poppins.variable,
@@ -48,6 +49,7 @@ export default function RootLayout({
         <main id="main" className="pt-[var(--header-height)]">
           {children}
         </main>
+        <SiteFooter />
       </body>
     </html>
   );
