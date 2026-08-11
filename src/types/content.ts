@@ -122,3 +122,51 @@ export interface AboutContent {
   paragraphs: readonly string[];
   principles: readonly AboutPrinciple[];
 }
+
+export interface ExperienceEntry {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  responsibilities: readonly string[];
+  technologies: readonly string[];
+  achievements: readonly string[];
+  /** Placeholder entries must be replaced with verified employment details. */
+  contentStatus: "placeholder" | "confirmed";
+}
+
+export interface ExperienceContent extends SectionIntro {
+  entries: readonly ExperienceEntry[];
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  problem: string;
+  deliverable: string;
+  technologies: readonly string[];
+}
+
+export interface ServicesContent extends SectionIntro {
+  services: readonly Service[];
+  cta: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    primary: CallToAction;
+    secondary: CallToAction;
+  };
+}
+
+export interface ProcessStep {
+  number: string;
+  title: string;
+  description: string;
+  outcome: string;
+  reinforces: readonly string[];
+}
+
+export interface ProcessContent extends SectionIntro {
+  steps: readonly ProcessStep[];
+  note: string;
+}

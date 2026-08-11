@@ -1,16 +1,14 @@
 import { Container } from "@/components/primitives/container";
 import { About } from "@/components/sections/about";
+import { DevelopmentProcess } from "@/components/sections/development-process";
+import { Experience } from "@/components/sections/experience";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
 import { Hero } from "@/components/sections/hero";
+import { Services } from "@/components/sections/services";
 import { Skills } from "@/components/sections/skills";
 
 /** Anchor targets for the navigation. Replaced section by section in later phases. */
 const upcomingSections = [
-  {
-    id: "experience",
-    title: "Experience",
-    note: "Roles, timeline and delivery highlights.",
-  },
   {
     id: "contact",
     title: "Contact",
@@ -25,6 +23,9 @@ export default function HomePage() {
       <About />
       <Skills />
       <FeaturedProjects />
+      <Experience />
+      <Services />
+      <DevelopmentProcess />
 
       {upcomingSections.map((section, index) => (
         <section
@@ -35,7 +36,7 @@ export default function HomePage() {
         >
           <Container className="py-[var(--section-padding)]">
             <p className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground">
-              {String(index + 5).padStart(2, "0")}
+              {String(index + 8).padStart(2, "0")}
             </p>
             <h2
               id={`${section.id}-heading`}
