@@ -45,8 +45,8 @@ export function SiteHeader() {
       <Container className="relative flex h-full items-center justify-between gap-6">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden lg:block">
+          <ul className="flex items-center gap-7">
             {navLinks.map((link) => {
               const isActive = activeId === link.sectionId;
 
@@ -85,13 +85,13 @@ export function SiteHeader() {
           href={primaryCta.href}
           className={buttonStyles({
             size: "sm",
-            className: "hidden md:inline-flex",
+            className: "hidden lg:inline-flex",
           })}
         >
           {primaryCta.label}
         </Link>
 
-        <MobileNav className="md:hidden" />
+        <MobileNav className="lg:hidden" />
       </Container>
     </header>
   );

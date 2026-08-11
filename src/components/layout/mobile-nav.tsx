@@ -18,7 +18,7 @@ export function MobileNav({ className }: { className?: string }) {
 
   // A resize to desktop would otherwise leave the panel open but hidden.
   React.useEffect(() => {
-    const query = window.matchMedia("(min-width: 768px)");
+    const query = window.matchMedia("(min-width: 1024px)");
     const onChange = (event: MediaQueryListEvent) => {
       if (event.matches) setOpen(false);
     };
@@ -112,7 +112,7 @@ export function MobileNav({ className }: { className?: string }) {
         aria-hidden
         onClick={close}
         className={cn(
-          "fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-[var(--duration-base)] md:hidden",
+          "fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-[var(--duration-base)] lg:hidden",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       />
@@ -125,7 +125,7 @@ export function MobileNav({ className }: { className?: string }) {
         aria-label="Site navigation"
         inert={!open}
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex w-[min(22rem,86vw)] flex-col border-l border-border bg-card transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] md:hidden",
+          "fixed inset-y-0 right-0 z-50 flex w-[min(22rem,86vw)] flex-col border-l border-border bg-card transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] lg:hidden",
           open ? "translate-x-0" : "translate-x-full",
         )}
       >
