@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="BHL">
+  <rect width="64" height="64" rx="10" fill="#0a0a0a"/>
+  <rect x="1" y="1" width="62" height="62" rx="9" fill="none" stroke="#262626" stroke-width="2"/>
+  <path d="M10 11h22v4H10z" fill="#0c95dd"/>
+  <text x="32" y="42" fill="#fafafa" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" text-anchor="middle">BHL<tspan fill="#0c95dd">.</tspan></text>
+</svg>

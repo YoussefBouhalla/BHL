@@ -8,11 +8,14 @@ import { CornerMarks } from "@/components/primitives/corner-marks";
 import { ProjectLinks } from "@/components/projects/project-links";
 import { ProjectMedia } from "@/components/projects/project-media";
 import { TechnologyList } from "@/components/projects/technology-list";
+import { JsonLd } from "@/components/seo/json-ld";
 import {
   getNextProject,
   getProjectBySlug,
   getProjectSlugs,
 } from "@/lib/projects";
+import { createPageMetadata } from "@/lib/metadata";
+import { getProjectStructuredData } from "@/lib/structured-data";
 
 const heroSizes = "(min-width: 1280px) 1200px, calc(100vw - 3rem)";
 const gallerySizes = "(min-width: 768px) 50vw, calc(100vw - 3rem)";
@@ -32,13 +35,25 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return { title: "Project not found" };
+    return createPageMetadata({
+      title: "Project not found",
+      description: "The requested project case study could not be found.",
+      path: `/projects/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
+  return createPageMetadata({
     title: `${project.title} — Case study`,
     description: project.shortDescription,
-  };
+    path: `/projects/${project.slug}`,
+    type: "article",
+    imagePath: project.image.placeholder
+      ? "/images/social-preview.png"
+      : project.image.src,
+    imageAlt: project.image.placeholder ? undefined : project.image.alt,
+    noIndex: project.contentStatus === "placeholder",
+  });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -50,9 +65,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const nextProject = getNextProject(slug);
+  const structuredData = getProjectStructuredData(project);
 
   return (
     <article className="pb-4">
+      {structuredData ? <JsonLd data={structuredData} /> : null}
       <Container className="pt-12 md:pt-16">
         <Link
           href="/#projects"
