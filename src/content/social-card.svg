@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#262626"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity=".7"/>
+  <path d="M80 72h72v4H80z" fill="#0c95dd"/>
+  <text x="80" y="120" fill="#fafafa" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">BHL<tspan fill="#0c95dd">.</tspan></text>
+  <text x="1120" y="116" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="14" letter-spacing="2" text-anchor="end">DEVELOPER PORTFOLIO</text>
+  <text x="80" y="242" fill="#0c95dd" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="3">FULL-STACK JAVASCRIPT / TYPESCRIPT</text>
+  <text x="80" y="324" fill="#fafafa" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-2">Building production-grade</text>
+  <text x="80" y="396" fill="#fafafa" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-2">web applications.</text>
+  <text x="80" y="458" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="21">Maintainable applications, APIs and product interfaces built with</text>
+  <text x="80" y="490" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="21">JavaScript and TypeScript.</text>
+  <path d="M80 548h1040" stroke="#262626"/>
+  <text x="80" y="586" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="15">TypeScript</text>
+  <text x="184" y="586" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="15">React</text>
+  <text x="250" y="586" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="15">Next.js</text>
+  <text x="330" y="586" fill="#a3a3a3" font-family="Arial, Helvetica, sans-serif" font-size="15">Node.js</text>
+</svg>

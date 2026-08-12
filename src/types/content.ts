@@ -22,6 +22,7 @@ export interface SiteConfig {
   location: string;
   email: string;
   url: string;
+  indexingEnabled: boolean;
   socialLinks: readonly SocialLink[];
   resumeUrl: string | null;
   availability: {

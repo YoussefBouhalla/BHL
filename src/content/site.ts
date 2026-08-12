@@ -3,6 +3,7 @@ import type { SiteConfig } from "@/types/content";
 /**
  * Single source of truth for personal details.
  * Replace the placeholder name, email, URL and profile links before deploying.
+ * Enable indexing only after the public domain and portfolio copy are final.
  * Null social or résumé URLs are rendered as unavailable, never as fake links.
  */
 export const siteConfig = {
@@ -14,6 +15,7 @@ export const siteConfig = {
   location: "Remote / Europe",
   email: "hello@example.com",
   url: "https://example.com",
+  indexingEnabled: false,
   socialLinks: [
     { label: "LinkedIn", href: null },
     { label: "GitHub", href: null },
