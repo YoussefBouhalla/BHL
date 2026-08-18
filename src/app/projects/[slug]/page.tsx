@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/primitives/container";
 import { CornerMarks } from "@/components/primitives/corner-marks";
+import { ProjectGallery } from "@/components/projects/project-gallery";
 import { ProjectLinks } from "@/components/projects/project-links";
 import { ProjectMedia } from "@/components/projects/project-media";
 import { TechnologyList } from "@/components/projects/technology-list";
@@ -18,7 +19,6 @@ import { createPageMetadata } from "@/lib/metadata";
 import { getProjectStructuredData } from "@/lib/structured-data";
 
 const heroSizes = "(min-width: 1280px) 1200px, calc(100vw - 3rem)";
-const gallerySizes = "(min-width: 768px) 50vw, calc(100vw - 3rem)";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -131,7 +131,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <ProjectMedia
             image={project.image}
             sizes={heroSizes}
-            ratio="16 / 9"
             priority
           />
         </div>
@@ -208,31 +207,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       {project.gallery.length > 0 ? (
         <CaseSection id="screenshots" number="06" title="Screenshots" wide>
-          <ul
-            className={
-              project.gallery.length > 1
-                ? "grid gap-6 md:grid-cols-2"
-                : "grid gap-6"
-            }
-          >
-            {project.gallery.map((image) => (
-              <li key={image.src}>
-                <figure>
-                  <ProjectMedia
-                    image={image}
-                    sizes={
-                      project.gallery.length > 1 ? gallerySizes : heroSizes
-                    }
-                    ratio="16 / 10"
-                    decorative
-                  />
-                  <figcaption className="mt-3 font-mono text-xs leading-6 text-muted-foreground">
-                    {image.alt}
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
+          <ProjectGallery images={project.gallery} />
         </CaseSection>
       ) : null}
 
