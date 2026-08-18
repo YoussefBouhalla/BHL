@@ -52,6 +52,10 @@ export function ProjectMedia({
             fill
             sizes={sizes}
             priority={priority}
+            // UI screenshots stay as the source PNG. Next.js 16's default
+            // quality-75 WebP pass blurs text and chrome.
+            quality={100}
+            unoptimized
             className="object-cover"
           />
         )}

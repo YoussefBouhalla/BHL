@@ -16,8 +16,10 @@ export const projectsSection = {
  *
  * To publish a project:
  *   1. Replace the copy and set `contentStatus: "confirmed"`.
- *   2. Add real screenshots at the `src` paths below (1600x1000 recommended)
- *      and set `placeholder: false` on each image so next/image optimises them.
+ *   2. Add real screenshots at the `src` paths below and set
+ *      `placeholder: false`. Pass the file's intrinsic width/height so the
+ *      layout matches the PNG. Project media is served unoptimized so UI
+ *      screenshots are not recompressed.
  *   3. Set `githubUrl` / `liveUrl`, or leave them null to hide the links.
  */
 
@@ -25,26 +27,28 @@ const placeholderImage = (
   slug: string,
   file: string,
   alt: string,
+  placeholder: boolean = true,
+  size?: { width: number; height: number },
 ): ProjectImage => ({
   src: `/images/projects/${slug}/${file}.png`,
   alt,
-  width: 1600,
-  height: 1000,
-  placeholder: true,
+  width: size?.width ?? 1600,
+  height: size?.height ?? 1000,
+  placeholder,
 });
 
 export const projects = [
   {
-    slug: "operations-platform",
-    title: "Operations Platform",
+    slug: "language-legends",
+    title: "Language Legends",
     shortDescription:
-      "A multi-tenant internal platform where operations teams manage records, permissions and daily scheduling in one place.",
+      "A multilingual e-learning storefront for browsing courses, unlocking content via purchases or packs, and learning with protected video, quizzes, and PDFs.",
     description:
-      "A web application replacing a spreadsheet-driven workflow with a single authenticated system. Teams manage their own records under scoped permissions, with server-rendered views for read-heavy pages and interactive client islands only where editing genuinely requires them.",
+      "A Next.js storefront with JWT auth, cart/checkout without a payment gateway (order + admin confirm), Business English pack tiers, private Supabase video streaming behind access checks, and a companion Electron admin dashboard for catalog, lessons, orders and site settings.",
     problem:
-      "Operational data lived across disconnected spreadsheets with no access control and no audit trail. Two people editing the same record silently overwrote each other, and nobody could answer who changed what.",
+      "Course sales and access lived in ad-hoc flows: public media URLs could leak lesson videos, pack membership and permanent ownership were easy to confuse, and admins needed a separate way to manage catalog, orders and content without shipping a full CMS.",
     category: "Web application",
-    role: "Sole developer — architecture, database design, API and interface",
+    role: "Sole developer — architecture, database design, API and interface.",
     year: 2026,
     featured: true,
     order: 1,
@@ -52,70 +56,114 @@ export const projects = [
       "TypeScript",
       "Next.js",
       "React",
-      "Node.js",
-      "Prisma",
-      "MySQL",
+      "Drizzle ORM",
+      "PostgreSQL (Supabase)",
+      "Supabase Storage",
       "Tailwind CSS",
+      "jose / bcrypt",
+      "Electron (admin)",
     ],
     image: placeholderImage(
-      "operations-platform",
+      "language-legends",
       "cover",
-      "Operations Platform dashboard overview",
+      "Landing page with a featured hero banner",
+      false,
+      { width: 1905, height: 951 },
     ),
     gallery: [
       placeholderImage(
-        "operations-platform",
-        "records",
-        "Record list with scoped filters and bulk selection",
+        "language-legends",
+        "details",
+        "Course detail with access states (owned / pack / locked lessons)",
+        false,
+        { width: 1905, height: 948 },
       ),
       placeholderImage(
-        "operations-platform",
-        "permissions",
-        "Role and permission management screen",
+        "language-legends",
+        "packs",
+        "Packs section with Gold / Platinum / Diamond tiers",
+        false,
+        { width: 1904, height: 950 },
+      ),
+      placeholderImage(
+        "language-legends",
+        "lessons",
+        "Lessons of a selected course with video, quiz and PDF revision",
+        false,
+        { width: 1906, height: 950 },
+      ),
+      placeholderImage(
+        "language-legends",
+        "dashboard_courses",
+        "Admin dashboard: courses",
+        false,
+        { width: 1919, height: 1033 },
+      ),
+      placeholderImage(
+        "language-legends",
+        "dashboard_packs",
+        "Admin dashboard: pack orders",
+        false,
+        { width: 1919, height: 1029 },
+      ),
+      placeholderImage(
+        "language-legends",
+        "dashboard_lessons",
+        "Admin dashboard: lessons",
+        false,
+        { width: 1919, height: 1032 },
+      ),
+      placeholderImage(
+        "language-legends",
+        "dashboard_social",
+        "Admin dashboard: social links",
+        false,
+        { width: 1919, height: 1032 },
       ),
     ],
     challenges: [
       {
-        title: "Tenant isolation without leaks",
+        title: "Protecting video without full DRM",
         description:
-          "Every query needed a tenant boundary. Enforcing it per call site would fail the first time somebody forgot, so isolation had to be impossible to bypass rather than merely documented.",
+          "Block casual download and hotlinking with private storage + access-gated proxy, while keeping HTML5 seeking (Range) and a usable player UX.",
       },
       {
-        title: "Concurrent edits on shared records",
+        title: "Pack vs ownership edge cases",
         description:
-          "Multiple users editing the same record produced silent last-write-wins overwrites, which was the original problem with spreadsheets and could not be reproduced in the replacement.",
+          "Keep pack expiry, pack-exclusive flags, and permanent ownership consistent so UI locks and API access never disagree.",
       },
       {
-        title: "Read-heavy pages under permission checks",
+        title: "Admin desktop ↔ hosted API",
         description:
-          "List views joined several tables and re-ran authorisation for every row, which made the most frequently visited pages the slowest ones.",
+          "Electron loads from file:// in production; CORS, env baking (VITE_API_URL), and Bearer auth had to work for both electron:dev and the installed build.",
       },
     ],
     solutions: [
       {
-        title: "Single authorised data layer",
+        title: "Access checks at the API boundary",
         description:
-          "All database access goes through a repository layer that requires a resolved session and injects the tenant scope. Route handlers cannot construct an unscoped query, so isolation is structural instead of a convention.",
+          "Course and lesson responses never expose private video storage paths. Playback goes through /api/lessons/[id]/video, which verifies free / owned / pack / per-lesson grants before streaming.",
       },
       {
-        title: "Optimistic concurrency with version checks",
+        title: "Ownership vs subscription as separate models",
         description:
-          "Records carry a version column. Updates submit the version they were loaded with, and a mismatch returns a conflict the interface surfaces as a diff, so the second editor sees what changed instead of overwriting it.",
+          "UserCourse is permanent purchase access. Active UserPack grants temporary access to pack-exclusive courses. Flipping a course to pack-exclusive does not revoke existing owners.",
       },
       {
-        title: "Server Components with narrowed queries",
+        title: "Media split by sensitivity",
         description:
-          "List pages render on the server and select only the columns the view needs, with permission filtering pushed into the query. Client components are limited to the editing surfaces that require state.",
+          "Public assets (images, PDFs) live in a public Supabase bucket. Lesson videos use a private bucket and short-lived server-side signed fetches so the browser only ever sees a same-origin stream URL.",
       },
     ],
     results: [
-      "Tenant scoping is enforced in one place, so a new endpoint inherits isolation by default.",
-      "Conflicting edits surface as an explicit conflict instead of a silent overwrite.",
-      "Schema, API contract and interface share one set of generated types.",
+      "Lesson videos are not served as public permanent URLs.",
+      "Pack membership and permanent ownership stay separate and predictable.",
+      "Catalog, orders, packs and footer social links are manageable from the desktop admin app.",
+      "Storefront UI is localized across four languages with RTL for Arabic.",
     ],
     githubUrl: null,
-    liveUrl: null,
-    contentStatus: "placeholder",
+    liveUrl: "https://language-legends.vercel.app",
+    contentStatus: "confirmed",
   },
   {
     slug: "inventory-orders-api",
