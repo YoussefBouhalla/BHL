@@ -48,10 +48,17 @@ export function Hero() {
               {siteConfig.availability.note}
             </p>
 
+            <p
+              className="animate-enter mt-7 font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground"
+              style={enterDelay(40)}
+            >
+              {siteConfig.name}
+            </p>
+
             <h1
               id="hero-heading"
-              className="animate-enter mt-7 text-balance font-display text-[clamp(2.5rem,6.2vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.035em]"
-              style={enterDelay(60)}
+              className="animate-enter mt-4 text-balance font-display text-[clamp(2.5rem,6.2vw,4.25rem)] font-bold leading-[1.04] tracking-[-0.035em]"
+              style={enterDelay(80)}
             >
               {headline.lead}
               <span className="text-primary">{headline.emphasis}</span>
@@ -60,14 +67,14 @@ export function Hero() {
 
             <p
               className="animate-enter mt-6 max-w-xl text-base leading-[1.7] text-muted-foreground md:text-lg"
-              style={enterDelay(120)}
+              style={enterDelay(140)}
             >
               {supporting}
             </p>
 
             <div
               className="animate-enter mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-              style={enterDelay(180)}
+              style={enterDelay(200)}
             >
               <a
                 href={primaryCta.href}
@@ -87,7 +94,7 @@ export function Hero() {
               </a>
             </div>
 
-            <div className="animate-enter mt-12" style={enterDelay(240)}>
+            <div className="animate-enter mt-12" style={enterDelay(260)}>
               <p
                 id="hero-stack-label"
                 className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-muted-foreground"
