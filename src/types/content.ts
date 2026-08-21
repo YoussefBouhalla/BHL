@@ -60,6 +60,7 @@ export interface SectionIntro {
 
 export type ProjectCategory =
   | "Web application"
+  | "Web/Desktop application"
   | "API & backend"
   | "Desktop application"
   | "Developer tooling";
